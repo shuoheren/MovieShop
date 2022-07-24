@@ -1,0 +1,76 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+        Movie Shop <i class="fas fa-film"></i>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto text-uppercase">
+            <li class="nav-item">
+                <div ngbDropdown>
+                    <a class="nav-link" style="cursor:pointer;" ngbDropdownToggle>Genres</a>
+                    <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                        <app-genres></app-genres>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ng-container *ngIf="!isLoggedIn">
+            <ul class="navbar-nav">
+                <li class="nav-item my-1">
+                    <a class="btn btn-outline-light rounded-pill" [routerLink]="['/account/login']">Login</a>
+                </li>
+                <li class="nav-item ml-2 my-1">
+                    <a [routerLink]="['/account/register']" class="btn btn-outline-light rounded-pill">
+                        Register
+                    </a>
+                </li>
+            </ul>
+        </ng-container>
+
+        <ng-container *ngIf="isLoggedIn">
+            <ng-container *ngIf="user.isAdmin">
+                <ul class="navbar-nav pr-3">
+
+                    <li ngbDropdown class="nav-item dropdown text-capitalize">
+                        <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown"
+                            style="cursor:pointer;" aria-haspopup="true" aria-expanded="false">Admin</a>
+
+                        <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a class="dropdown-item" [routerLink]="['admin/reports/topmovies']">Top Movies
+                            </a>
+                            <a class="dropdown-item" [routerLink]="['admin/createmovie']">Create Movie
+                            </a>
+
+                        </div>
+                    </li>
+                </ul>
+            </ng-container>
+
+            <ul class="navbar-nav pr-3">
+                <li ngbDropdown class="nav-item dropdown text-capitalize">
+                    <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown"
+                        style="cursor:pointer;" aria-haspopup="true" aria-expanded="false">{{ user.given_name + '
+                        '+ user.family_name }}</a>
+                    <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" [routerLink]="['user/purchases']">Movies
+                            <i class="fas fa-film"></i></a>
+                        <a class="dropdown-item" [routerLink]="['user/favorites']">Favorites
+                            <i class="fas fa-star"></i>
+                        </a>
+                        <a class="dropdown-item" [routerLink]="[ '/user/details/', user.nameid]">Account
+                            <i class="fas fa-user-circle"></i>
+                        </a>
+                        <a class="dropdown-item" [routerLink]="['/']" (click)="logout()">Log Out
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </ng-container>
+
+    </div>
+</nav>

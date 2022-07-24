@@ -1,0 +1,53 @@
+<div class="rounded">
+    <div class="container-fluid bg-light">
+        <div class="row">
+            <div class="col-6 col-lg-3 col-sm-4 col-xl-2" *ngFor="let movie of purchases.purchasedMovies">
+                <app-movie-card [movieCard]='movie' [hideButton]='false'
+                    (showPurchaseDetails)="showPurchaseDetails($event, content)">
+                </app-movie-card>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Purchase Details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card mb-4 bg-light">
+                <img src="{{ purchaseDetails.posterUrl }}" alt="{{ purchaseDetails.title }}"
+                    class="img-fluid rounded shadow-lg " />
+            </div>
+        </div>
+
+        <div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <i class="far fa-calendar-alt mr-2"></i>Purchased Date
+                    <span class="badge badge-pill badge-dark">{{purchaseDetails?.purchaseDateTime| date}}</span>
+                </li>
+
+
+                <li class="list-group-item">
+                    <i class="far fa-money-bill-alt"></i> Price
+                    <span class="badge badge-pill badge-pill badge-dark"> {{purchaseDetails?.totalPrice| currency
+                        }}</span>
+                </li>
+
+                <li class="list-group-item">
+                    <i class="fas fa-check-circle"></i> Purchase Number
+                    <span class="badge badge-pill badge-dark"> {{purchaseDetails?.purchaseNumber}}</span>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+
+
+</ng-template>

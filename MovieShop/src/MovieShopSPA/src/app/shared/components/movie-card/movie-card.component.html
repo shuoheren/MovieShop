@@ -1,0 +1,9 @@
+<div class="card mb-4 bg-light">
+    <a [routerLink]="[ '/movies/', movieCard.id ]">
+        <img src="{{ movieCard.posterUrl }}" alt="{{ movieCard.title }}" class="img-fluid rounded shadow-lg " />
+    </a>
+    <button type="button" class="btn btn-dark btn-sm btn-block" [hidden]='hideButton'
+        (click)="purchases(movieCard.id)">Purchase
+        Details</button>
+
+</div>

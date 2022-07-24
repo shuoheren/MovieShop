@@ -1,0 +1,38 @@
+<h4 class="alert-heading">Top Movies</h4>
+
+<div class="alert alert-secondary row d-flex justify-content-center flex-nowrap shadow-sm">
+    <form #searchForm="ngForm" class="form-inline" (ngSubmit)="searchMovies()">
+        <label class="my-1 mr-2" for="fromDate">From date</label>
+        <input type="date" class="form-control mb-2 mr-sm-2" id="fromDate" placeholder="From Date" name="fromDate"
+            [(ngModel)]="fromDate">
+
+        <label class="my-1 mr-2" for="toDate">To Date</label>
+        <input type="date" class="form-control mb-2 mr-sm-2" id="toDate" placeholder="To Date" name="toDate"
+            [(ngModel)]="toDate">
+        <button type="submit" class="btn btn-primary mb-2">Search</button>
+    </form>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th> Title </th>
+            <th> Total Purchases </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let movie of movies.data; index as i">
+            <td> {{ (movies.pageSize * (movies.pageIndex-1)) + i+1 }} </td>
+            <td>{{movie.title}}</td>
+            <td>
+                <span class="badge badge-light" style="font-size:20px">{{movie.totalPurchases}}</span>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<ngb-pagination [collectionSize]="movies.count" [pageSize]="movies.pageSize" [(page)]="movies.pageIndex" [maxSize]="5"
+    [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+</ngb-pagination>
